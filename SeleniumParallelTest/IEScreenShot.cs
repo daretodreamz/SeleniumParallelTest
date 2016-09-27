@@ -12,7 +12,7 @@ using mshtml;
 
 namespace SeleniumParallelTest
 {
-    public class ScreenShot
+    public class IEScreenShot
     {
 
         //We need some system dll functions.
@@ -80,8 +80,8 @@ namespace SeleniumParallelTest
             //    myDoc.body.setAttribute("scroll", "Yes", 0);
 
             //    //Get Browser Window Height
-            //    heightsize = (int)myDoc.body.getAttribute("scrollHeight", 0)-25;
-            //    widthsize = (int)myDoc.body.getAttribute("scrollWidth", 0)-5;
+            //    heightsize = (int)myDoc.body.getAttribute("scrollHeight", 0);
+            //    widthsize = (int)myDoc.body.getAttribute("scrollWidth", 0);
 
             //    //Get Screen Height
             //    screenHeight = (int)myDoc.body.getAttribute("clientHeight", 0);
@@ -154,9 +154,9 @@ namespace SeleniumParallelTest
             //Get Screen Height (for bottom up screen drawing)
             while ((myPage*screenHeight) < heightsize)
             {
-                if (!IsDTDDocument(myDoc))
-                    myDoc.body.setAttribute("scrollTop", (screenHeight - 5) * myPage, 0);
-                else
+                //if (!IsDTDDocument(myDoc))
+                //    myDoc.body.setAttribute("scrollTop", (screenHeight - 5) * myPage, 0);
+                //else
                     doc3.documentElement.setAttribute("scrollTop", (screenHeight - 5) * myPage, 0);
                 ++myPage;
             }

@@ -15,9 +15,10 @@ namespace SeleniumParallelTest
         }
 
         [Test]
-        public void IEGoogleTest()
+        public void IESohuTest()
         {
-            Driver.Navigate().GoToUrl("http://www.google.com");
+            Driver.Navigate().GoToUrl("http://www.sohu.com");
+            IEScreenShot.TakeScreenShot();
         }
     }
 }
