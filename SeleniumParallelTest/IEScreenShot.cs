@@ -36,16 +36,16 @@ namespace SeleniumParallelTest
         {
             // XHtml declare flag string
             string DocTypeContent = @"-//W3C//DTD";
-            mshtml.IHTMLDocument3 document3 = (mshtml.IHTMLDocument3)document;
-            mshtml.IHTMLDOMChildrenCollection domChilds = (mshtml.IHTMLDOMChildrenCollection)document3.childNodes;
-            mshtml.IHTMLDOMNode domNode = (mshtml.IHTMLDOMNode)domChilds.item(0);
+            mshtml.IHTMLDocument3 document3 = (mshtml.IHTMLDocument3) document;
+            mshtml.IHTMLDOMChildrenCollection domChilds = (mshtml.IHTMLDOMChildrenCollection) document3.childNodes;
+            mshtml.IHTMLDOMNode domNode = (mshtml.IHTMLDOMNode) domChilds.item(0);
             return domNode.nodeValue.ToString().Contains(DocTypeContent);
         }
 
         public static void TakeScreenShot()
         {
 
-           // Thread.Sleep(20000);
+            // Thread.Sleep(20000);
 
 
             WebBrowser m_browser = null;
@@ -67,8 +67,8 @@ namespace SeleniumParallelTest
             }
 
             //Assign Browser Document
-            mshtml.IHTMLDocument2 myDoc = (mshtml.IHTMLDocument2)m_browser.Document;
-            mshtml.IHTMLDocument3 doc3 = (mshtml.IHTMLDocument3)myDoc;
+            mshtml.IHTMLDocument2 myDoc = (mshtml.IHTMLDocument2) m_browser.Document;
+            mshtml.IHTMLDocument3 doc3 = (mshtml.IHTMLDocument3) myDoc;
             int heightsize = 0;
             int widthsize = 0;
             int screenHeight = 0;
@@ -92,12 +92,12 @@ namespace SeleniumParallelTest
                 doc3.documentElement.setAttribute("scroll", "Yes", 0);
 
                 //Get Browser Window Height
-                heightsize = (int)doc3.documentElement.getAttribute("scrollHeight", 0);
-                widthsize = (int)doc3.documentElement.getAttribute("scrollWidth", 0);
+                heightsize = (int) doc3.documentElement.getAttribute("scrollHeight", 0);
+                widthsize = (int) doc3.documentElement.getAttribute("scrollWidth", 0);
 
                 //Get Screen Height
-                screenHeight = (int)doc3.documentElement.getAttribute("clientHeight", 0);
-                screenWidth = (int)doc3.documentElement.getAttribute("clientWidth", 0);
+                screenHeight = (int) doc3.documentElement.getAttribute("clientHeight", 0);
+                screenWidth = (int) doc3.documentElement.getAttribute("clientWidth", 0);
             }
 
             //Get bitmap to hold screen fragment.
@@ -123,7 +123,7 @@ namespace SeleniumParallelTest
             //Get Browser "Document" Handle
             while (hwndInt != 0)
             {
-                
+
                 hwndInt = hwnd.ToInt32();
                 GetClassName(hwndInt, sbc, 256);
 
@@ -157,7 +157,7 @@ namespace SeleniumParallelTest
                 //if (!IsDTDDocument(myDoc))
                 //    myDoc.body.setAttribute("scrollTop", (screenHeight - 5) * myPage, 0);
                 //else
-                    doc3.documentElement.setAttribute("scrollTop", (screenHeight - 5) * myPage, 0);
+                doc3.documentElement.setAttribute("scrollTop", (screenHeight - 5)*myPage, 0);
                 ++myPage;
             }
             //Rollback the page count by one
@@ -170,11 +170,11 @@ namespace SeleniumParallelTest
                 //if (!IsDTDDocument(myDoc))
                 //    myDoc.body.setAttribute("scrollLeft", (screenWidth - 5) * myPageWidth, 0);
                 //else
-                    doc3.documentElement.setAttribute("scrollLeft", (screenWidth - 5) * myPageWidth, 0);
+                doc3.documentElement.setAttribute("scrollLeft", (screenWidth - 5)*myPageWidth, 0);
                 //if (!IsDTDDocument(myDoc))
                 //    brwLeft = (int)myDoc.body.getAttribute("scrollLeft", 0);
                 //else
-                    brwLeft = (int)doc3.documentElement.getAttribute("scrollLeft", 0);
+                brwLeft = (int) doc3.documentElement.getAttribute("scrollLeft", 0);
                 for (int i = myPage; i >= 0; --i)
                 {
                     //Shoot visible window
@@ -183,12 +183,12 @@ namespace SeleniumParallelTest
                     //if (!IsDTDDocument(myDoc))
                     //    myDoc.body.setAttribute("scrollTop", (screenHeight - 5) * i, 0);
                     //else
-                        doc3.documentElement.setAttribute("scrollTop", (screenHeight - 5) * i, 0);
+                    doc3.documentElement.setAttribute("scrollTop", (screenHeight - 5)*i, 0);
 
                     //if (!IsDTDDocument(myDoc))
                     //    brwTop = (int)myDoc.body.getAttribute("scrollTop", 0);
                     //else
-                        brwTop = (int)doc3.documentElement.getAttribute("scrollTop", 0);
+                    brwTop = (int) doc3.documentElement.getAttribute("scrollTop", 0);
                     PrintWindow(hwnd, hdc, 0);
                     g.ReleaseHdc(hdc);
                     g.Flush();
@@ -199,11 +199,11 @@ namespace SeleniumParallelTest
             }
 
             //Reduce Resolution Size
-            double myResolution = Convert.ToDouble(100) * 0.01;
-            int finalWidth = (int)((widthsize) * myResolution);
-            int finalHeight = (int)((heightsize) * myResolution);
+            double myResolution = Convert.ToDouble(100)*0.01;
+            int finalWidth = (int) ((widthsize)*myResolution);
+            int finalHeight = (int) ((heightsize)*myResolution);
             Bitmap finalImage = new Bitmap(finalWidth, finalHeight, System.Drawing.Imaging.PixelFormat.Format16bppRgb555);
-            Graphics gFinal = Graphics.FromImage((Image)finalImage);
+            Graphics gFinal = Graphics.FromImage((Image) finalImage);
             gFinal.DrawImage(bm2, 0, 0, finalWidth, finalHeight);
 
             //Get Time Stamp
@@ -241,68 +241,6 @@ namespace SeleniumParallelTest
             }
             return null;
         }
-
-        //[ComImport]
-        //[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-        //[Guid("0000010d-0000-0000-C000-000000000046")]
-        //private interface IViewObject
-        //{
-        //    [PreserveSig]
-        //    int Draw([In] [MarshalAs(UnmanagedType.U4)] int dwDrawAspect, int lindex, IntPtr pvAspect,
-        //        [In] /*tagDVTARGETDEVICE*/ IntPtr ptd, IntPtr hdcTargetDev, IntPtr hdcDraw,
-        //        [In] /*COMRECT*/ Rectangle lprcBounds, [In] /*COMRECT*/ IntPtr lprcWBounds, IntPtr pfnContinue,
-        //        [In] int dwContinue);
-
-        //    [PreserveSig]
-        //    int GetColorSet([In] [MarshalAs(UnmanagedType.U4)] int dwDrawAspect, int lindex, IntPtr pvAspect,
-        //        [In] /*tagDVTARGETDEVICE*/ IntPtr ptd, IntPtr hicTargetDev, [Out] /*tagLOGPALETTE*/ IntPtr ppColorSet);
-
-        //    [PreserveSig]
-        //    int Freeze([In] [MarshalAs(UnmanagedType.U4)] int dwDrawAspect, int lindex, IntPtr pvAspect,
-        //        [Out] IntPtr pdwFreeze);
-
-        //    [PreserveSig]
-        //    int Unfreeze([In] [MarshalAs(UnmanagedType.U4)] int dwFreeze);
-
-        //    void SetAdvise([In] [MarshalAs(UnmanagedType.U4)] int aspects, [In] [MarshalAs(UnmanagedType.U4)] int advf,
-        //        [In] [MarshalAs(UnmanagedType.Interface)] /*IAdviseSink*/ IntPtr pAdvSink);
-
-        //    void GetAdvise([In] [Out] [MarshalAs(UnmanagedType.LPArray)] int[] paspects,
-        //        [In] [Out] [MarshalAs(UnmanagedType.LPArray)] int[] advf,
-        //        [In] [Out] [MarshalAs(UnmanagedType.LPArray)] /*IAdviseSink[]*/ IntPtr[] pAdvSink);
-        //}
-
-        //public static Bitmap Create(string url)
-        //{
-        //    using (var webBrowser = new WebBrowser())
-        //    {
-        //        webBrowser.ScrollBarsEnabled = false;
-        //        webBrowser.ScriptErrorsSuppressed = true;
-        //        webBrowser.Navigate(url);
-
-        //        while (webBrowser.ReadyState != WebBrowserReadyState.Complete)
-        //        {
-        //            Application.DoEvents();
-        //        }
-
-        //        webBrowser.Width = webBrowser.Document.Body.ScrollRectangle.Width;
-        //        webBrowser.Height = webBrowser.Document.Body.ScrollRectangle.Height;
-
-        //        var bitmap = new Bitmap(webBrowser.Width, webBrowser.Height);
-        //        var graphics = Graphics.FromImage(bitmap);
-        //        var hdc = graphics.GetHdc();
-
-        //        var rect = new Rectangle(0, 0, webBrowser.Width, webBrowser.Height);
-
-        //        var viewObject = (IViewObject) webBrowser.Document.DomDocument;
-        //        viewObject.Draw(1, -1, (IntPtr) 0, (IntPtr) 0, (IntPtr) 0, hdc, rect, (IntPtr) 0, (IntPtr) 0, 0);
-
-        //        graphics.ReleaseHdc(hdc);
-
-        //        return bitmap;
-        //    }
-        //}
-
     }
 }
 
